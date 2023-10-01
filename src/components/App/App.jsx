@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
+import { FaPlus } from 'react-icons/fa6';
 import { Container, Title, SubTitle, EmptyContactListText } from './App.styled';
+import Modal from 'components/Modal';
+import IconButton from './IconButton/IconButton';
 import ContactForm from 'components/ContactForm';
 import Filter from 'components/Filter';
 import ContactList from 'components/ContactList';
@@ -14,6 +17,13 @@ export default class App extends Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
+    showModal: false,
+  };
+
+  toggleModal = () => {
+    this.setState(({ showModal }) => ({
+      showModal: !showModal,
+    }));
   };
 
   //* додавання нового контакту з перевіркою на наявність контактів з таким ім'ям
@@ -33,6 +43,8 @@ export default class App extends Component {
     this.setState(({ contacts }) => ({
       contacts: [newContact, ...contacts],
     }));
+
+    this.toggleModal();
   };
 
   //* фільтр пошуку за ім'ям
@@ -71,14 +83,23 @@ export default class App extends Component {
   }
 
   render() {
-    const { contacts, filter } = this.state;
+    const { contacts, filter, showModal } = this.state;
 
     const foundContacts = this.getFoundContacts();
 
     return (
       <Container>
+        {showModal && (
+          <Modal onClose={this.toggleModal}>
+            <ContactForm onAddContact={this.addContact} />
+          </Modal>
+        )}
+
         <Title children="Phonebook" />
-        <ContactForm onAddContact={this.addContact} />
+        <IconButton onClick={this.toggleModal}>
+          <FaPlus size="2em" />
+        </IconButton>
+
         <SubTitle children="Contacts" />
 
         {contacts.length > 0 ? (

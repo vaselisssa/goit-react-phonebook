@@ -1,10 +1,7 @@
 import React from 'react';
-import {
-  Contacts,
-  ContactItem,
-  Text,
-  DeleteButton,
-} from './ContactList.styled';
+import { FaRegTrashCan } from 'react-icons/fa6';
+import IconButton from 'components/App/IconButton/IconButton';
+import { Contacts, ContactItem, Text } from './ContactList.styled';
 
 const ContactList = ({ contacts, onDeleteContact }) => {
   return (
@@ -14,11 +11,9 @@ const ContactList = ({ contacts, onDeleteContact }) => {
           <Text>
             {name} : {number}
           </Text>
-          <DeleteButton
-            type="button"
-            children="Delete"
-            onClick={() => onDeleteContact(id)}
-          />
+          <IconButton type="button" onClick={() => onDeleteContact(id)}>
+            <FaRegTrashCan />
+          </IconButton>
         </ContactItem>
       ))}
     </Contacts>

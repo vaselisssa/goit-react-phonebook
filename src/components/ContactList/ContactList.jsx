@@ -11,7 +11,11 @@ const ContactList = ({ contacts, onDeleteContact }) => {
           <Text>
             {name} : {number}
           </Text>
-          <IconButton type="button" onClick={() => onDeleteContact(id)}>
+          <IconButton
+            type="button"
+            onClick={() => onDeleteContact(id)}
+            aria-label="Delete contact"
+          >
             <FaRegTrashCan />
           </IconButton>
         </ContactItem>

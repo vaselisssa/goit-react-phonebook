@@ -20,6 +20,30 @@ export default class App extends Component {
     showModal: false,
   };
 
+  componentDidMount() {
+    const contacts = localStorage.getItem('contacts');
+    const parsedContacts = JSON.parse(contacts);
+    if (parsedContacts) {
+      this.setState({ contacts: parsedContacts });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const nextContacts = this.state.contacts;
+    const prevContacts = prevState.contacts;
+
+    if (nextContacts !== prevContacts) {
+      localStorage.setItem('contacts', JSON.stringify(nextContacts));
+    }
+
+    if (
+      nextContacts.length > prevContacts.length &&
+      prevContacts.length !== 0
+    ) {
+      this.toggleModal();
+    }
+  }
+
   toggleModal = () => {
     this.setState(({ showModal }) => ({
       showModal: !showModal,
@@ -43,8 +67,6 @@ export default class App extends Component {
     this.setState(({ contacts }) => ({
       contacts: [newContact, ...contacts],
     }));
-
-    this.toggleModal();
   };
 
   //* фільтр пошуку за ім'ям
@@ -68,20 +90,6 @@ export default class App extends Component {
     }));
   };
 
-  componentDidMount() {
-    const contacts = localStorage.getItem('contacts');
-    const parsedContacts = JSON.parse(contacts);
-    if (parsedContacts) {
-      this.setState({ contacts: parsedContacts });
-    }
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.contacts !== prevState.contacts) {
-      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
-    }
-  }
-
   render() {
     const { contacts, filter, showModal } = this.state;
 
@@ -96,7 +104,7 @@ export default class App extends Component {
         )}
 
         <Title children="Phonebook" />
-        <IconButton onClick={this.toggleModal}>
+        <IconButton onClick={this.toggleModal} aria-label="Add contact">
           <FaPlus size="2em" />
         </IconButton>
 

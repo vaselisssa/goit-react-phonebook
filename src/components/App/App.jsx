@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid';
 import { FaPlus } from 'react-icons/fa6';
 import { Container, Title, SubTitle, EmptyContactListText } from './App.styled';
 import Modal from 'components/Modal';
-import IconButton from './IconButton/IconButton';
+import IconButton from 'components/IconButton';
 import ContactForm from 'components/ContactForm';
 import Filter from 'components/Filter';
 import ContactList from 'components/ContactList';

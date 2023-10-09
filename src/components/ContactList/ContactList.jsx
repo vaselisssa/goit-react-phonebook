@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaRegTrashCan } from 'react-icons/fa6';
-import IconButton from 'components/App/IconButton/IconButton';
+import IconButton from 'components/IconButton';
 import { Contacts, ContactItem, Text } from './ContactList.styled';
 
 const ContactList = ({ contacts, onDeleteContact }) => {

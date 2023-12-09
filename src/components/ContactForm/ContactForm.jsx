@@ -37,7 +37,7 @@ const ContactForm = ({ onAddContact }) => {
       <Form autoComplete="off">
         <Label>
           Name:
-          <Input type="text" name="name" />
+          <Input type="text" name="name" autoFocus />
           <FormError name="name" />
         </Label>
         <Label>
